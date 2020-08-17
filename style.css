@@ -35,7 +35,7 @@ body{
     height: 100%;
 }
 .single-result{
-    background: rgba(255, 255, 255, 0.2);
+    /* background: rgba(255, 255, 255, 0.2); */
     border-radius: 15px;
 }
 .search_item{
@@ -44,4 +44,11 @@ body{
     /* border : 1px solid lightgray; */
     border-radius: 10px;
     box-shadow: 10px 10px 50px 10px grey;
+}
+.fancy-item{
+    border-radius: 15px;
+    box-shadow: 5px 5px 30px 5px rgb(66, 63, 63);
+    padding: 20px;
+    margin : 20px;
+
 }

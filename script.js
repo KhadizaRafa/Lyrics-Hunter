@@ -9,12 +9,16 @@ function getSongLists(){
             .then(data => showResults(data))
     }
     else{
-        alert("Please provide right value in search box")
+        alert("Please provide right value in search box") //show error if input is null
     }
 }
 
 function getLyrics(author,title){
     url = `${baseUrl}/v1/${author}/${title}`;
+    
+    document.getElementById('songTitle').innerHTML = '';
+    document.getElementById('showLyrics').innerHTML = '';
+
     fetch(url)
     .then(response => response.json())
     .then(data => 
@@ -22,12 +26,10 @@ function getLyrics(author,title){
         let lyrics = data.lyrics;
         if(data.error)
         {
-            lyrics = 'No lyrics found'
+            lyrics = 'No lyrics found'; //if got 404 from lyrics api
         }
-        document.getElementById('songTitle').innerHTML = '';
-        document.getElementById('showLyrics').innerHTML = '';
-
-        document.getElementById('songTitle').innerText = title
+        
+        document.getElementById('songTitle').innerText = title;
         document.getElementById('showLyrics').innerText = lyrics;
     } )
     
@@ -40,8 +42,7 @@ const getValueFromResultObj = (data,i) => {
         album_cover : initalObj.album.cover_medium,
         artist : initalObj.artist.name,
         artist_url : initalObj.artist.link,
-        artist_img : initalObj.artist.picture
-    
+        artist_img : initalObj.artist.picture   
     }
     return newData;
 
@@ -49,6 +50,7 @@ const getValueFromResultObj = (data,i) => {
 
 
 const showResults = data => {
+
     const resList = document.getElementById('search_results');
     resList.innerHTML = '';
     const fancyList = document.getElementById('fancy-result');
@@ -72,28 +74,29 @@ const showResults = data => {
             <br>
               
          </div>
-    </div>
-        `
+    </div>`
 
 
 
 
         fancyList.innerHTML += 
-        `<div class="single-result row align-items-center my-3 p-3  d-flex justify-content-start">
-        <div class="col-md-6  text-md-center">
-            <img src="${newDataObj.album_cover}" class="rounded"  alt="No Image Found">
+        `<div class ="col-md-6">
+            <div class= "row fancy-item">
+            <div class="col-md-6  text-md-center">
+                <img src="${newDataObj.album_cover}" class="rounded w-100"  alt="No Image Found">
             
-        </div>
-        <div class="col-md-6 ">
+             </div>
+            <div class="col-md-6 w-100">
             
-            <h3 class="lyrics-name pb-5">${newDataObj.title}</h3>        
+                 <h3 class="lyrics-name pb-2">${newDataObj.title}</h3>        
             
-            <h5 class="author lead"> Artist: <span>${newDataObj.artist}</span></h5>
-            <p class="author lead">Album Name: <span>${newDataObj.album}</span></p>
-            <p class="author lead" ><a href='${newDataObj.artist_url}' target="_blank">Get to know us</a></p>
+                 <h5 class="author lead"> Artist: <span>${newDataObj.artist}</span></h5>
+                 <p>Album Name: <span>${newDataObj.album}</span></p>
+                 <p class="author lead" ><a href='${newDataObj.artist_url}' target="_blank">Get to know us</a></p>
 
 
-            <button class="btn btn-success " onclick="getLyrics('${newDataObj.artist}','${newDataObj.title}')">Get Lyrics</button>
+                 <button class="btn btn-success " onclick="getLyrics('${newDataObj.artist}','${newDataObj.title}')">Get Lyrics</button>
+             </div>
         </div>
     </div>`
         
