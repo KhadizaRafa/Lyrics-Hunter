@@ -49,7 +49,6 @@ const getValueFromResultObj = (data,i) => {
 
 
 const showResults = data => {
-    console.log(data)
     const resList = document.getElementById('search_results');
     resList.innerHTML = '';
     const fancyList = document.getElementById('fancy-result');
